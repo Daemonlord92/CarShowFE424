@@ -9,8 +9,11 @@ export const fetchCars = async () => {
 
 export const postNewCar = async (data) => {
     const result = await fetch('http://localhost:8080/api/v1/car/',{
-        method: 'post',
-        body: data
+        method: 'POST',
+        body: data,
+        headers: {
+            "Content-Type" : "application/json"
+        }
     })
     const ret = await result.json();
     return ret;

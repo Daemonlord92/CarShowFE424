@@ -1,8 +1,8 @@
 import { TableContainer, Table, Paper, TableHead, TableRow, TableCell, TableBody } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import CarRow from "./CarRow";
-import CreateCar from "./CreateCar";
 import { fetchCars } from "../api/car";
+import CreateCarWrapper from "./CreateCarWrapper";
 
 const CarList = () => {
     const { data, error, isLoading } = useQuery({
@@ -16,7 +16,7 @@ const CarList = () => {
 
     return(
         <>
-            <CreateCar/>
+            <CreateCarWrapper/>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                     <TableHead>

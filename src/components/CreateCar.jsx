@@ -1,31 +1,51 @@
 import React from "react";
-import { Modal, Button, Box, Typography, InputLabel, Input, FormControl } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { Modal, Button, Box, InputLabel, Input, FormControl } from "@mui/material";
+import HandleMutation from "../helper/HandleMutation";
 import { postNewCar } from "../api/car";
 
 class CreateCar extends React.Component {
     constructor() {
          super()
-        this.state= {open: false};
+        this.state= {
+            open: false,
+            make: '',
+            model: '',
+            vin: '',
+            year: '',
+            mileage: ''
+        };
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleMutation = this.handleMutation.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
         }
     
-    mutation = useMutation({
-       mutationFn: postNewCar,
-       onSuccess: (data) => {
-        alert(`Success: ${data}` )
-       },
-       onError:(error) => {
-        alert(`Error: ${error}`)
-       }  
-    })
+    handleMutation = () => {
+        const { mutation } = this.props;
+        console.log(this.props)
+        console.log(mutation)
+        this.props.mutation.mutate(JSON.stringify({
+            make: this.state.make,
+            model: this.state.model,
+            vin: this.state.vin,
+            year: this.state.year,
+            mileage: this.state.mileage
+        }));
+        this.handleClose()
+    }
     handleOpen = () => {
         this.setState({open: true});
     }
 
     handleClose = () => {
         this.setState({open: false});
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            [event.target.id]: event.target.value
+        })
     }
 
     render() {
@@ -43,34 +63,34 @@ class CreateCar extends React.Component {
                         <InputLabel htmlFor="make">
                             Make:
                         </InputLabel>
-                        <Input id="make" />
+                        <Input id="make" value={this.state.make} onChange={this.handleChange}/>
                     </FormControl >
                     <FormControl sx={{my: 1}}>
                         <InputLabel htmlFor="model">
                             Model:
                         </InputLabel>
-                        <Input id="model" />
+                        <Input id="model" value={this.state.model} onChange={this.handleChange}/>
                     </FormControl >
                     <FormControl sx={{my: 1}}>
                         <InputLabel htmlFor="vin">
                             VIN:
                         </InputLabel>
-                        <Input id="vin" />
+                        <Input id="vin" value={this.state.vin} onChange={this.handleChange}/>
                     </FormControl>
                     <FormControl sx={{my: 1}}>
                         <InputLabel htmlFor="year">
                             Year:
                         </InputLabel>
-                        <Input id="year" />
+                        <Input id="year" value={this.state.year} onChange={this.handleChange}/>
                     </FormControl>
                     <FormControl sx={{my: 1}}>
                         <InputLabel htmlFor="mileage">
                             Mileage
                         </InputLabel>
-                        <Input id="mileage" />
+                        <Input id="mileage" value={this.state.mileage} onChange={this.handleChange}/>
                     </FormControl>
-                    <Button>
-                        Sumbit
+                    <Button onClick={this.handleMutation}>
+                        Submit
                     </Button>
                 </Box>
                 </Modal>
