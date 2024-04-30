@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from "@mui/material"
+import UpdateCar from "./UpdateCar"
 
 export default function CarRow({id, make, model, vin, year, mileage}) {
     return (
@@ -8,6 +9,7 @@ export default function CarRow({id, make, model, vin, year, mileage}) {
             <TableCell>{vin}</TableCell>
             <TableCell>{year}</TableCell>
             <TableCell>{mileage}</TableCell>
+            <TableCell><UpdateCar data={{id, make, model, vin, year, mileage}} /></TableCell>
         </TableRow>
     )
 }
