@@ -36,7 +36,6 @@ export default function UpdateCar(data) {
             mileage: data.data.mileage
         })
     }, [])
-    console.log(car)
     const handleOpen = () => {
         setOpen(true)
     }
