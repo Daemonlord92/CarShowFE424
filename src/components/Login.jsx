@@ -17,14 +17,13 @@ export default function Login() {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-
             })
-            return await result.json()
+            return await result.text()
         },
         onSuccess: (data) => {
-            alert(`Success: ${data.data}` )
-            console.log(data)
-            sessionStorage.setItem('Authorization', data.data)
+            alert(`Success: ${data}` )
+            sessionStorage.setItem('Authorization', JSON.stringify(data))
+            handleClose()
         },
         onError:(error) => {
             alert(`Error: ${error}`)

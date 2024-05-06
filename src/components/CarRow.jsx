@@ -9,7 +9,10 @@ export default function CarRow({id, make, model, vin, year, mileage}) {
             <TableCell>{vin}</TableCell>
             <TableCell>{year}</TableCell>
             <TableCell>{mileage}</TableCell>
-            <TableCell><UpdateCar data={{id, make, model, vin, year, mileage}} /></TableCell>
+            {
+                sessionStorage.getItem("Authorization")?
+                <TableCell><UpdateCar data={{id, make, model, vin, year, mileage}} /></TableCell> : null
+            }
         </TableRow>
     )
 }

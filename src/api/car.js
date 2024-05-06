@@ -8,11 +8,13 @@ export const fetchCars = async () => {
 }
 
 export const postNewCar = async (data) => {
-    const result = await fetch('http://localhost:8080/api/v1/car/',{
+    const result = await fetch('http://localhost:8080/api/v1/car/new/',{
         method: 'POST',
         body: data,
         headers: {
-            "Content-Type" : "application/json"
+            "Content-Type" : "application/json",
+            "Authorization" : `Bearer ${JSON.parse(sessionStorage.getItem("Authorization"))}`,
+            "Access-Control-Allow-Origin": "http://localhost:5173"
         }
     })
     const ret = await result.json();
@@ -20,11 +22,14 @@ export const postNewCar = async (data) => {
 }
 
 export const updateCar = async (data) => {
-    const result = await fetch ('http://localhost:8080/api/v1/car/', {
+    console.log(data)
+    const result = await fetch ('http://localhost:8080/api/v1/car/update/', {
         method: 'PUT',
-        body:data,
+        body: data,
         headers: {
-            "Content-Type" : "application/json"
+            "Content-Type" : "application/json",
+            "Authorization" : `Bearer ${JSON.parse(sessionStorage.getItem("Authorization"))}`,
+            "Access-Control-Allow-Origin": "http://localhost:5173"
         }
     })
     return await result.json()
